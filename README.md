@@ -31,6 +31,10 @@ Currently tested on:
 
 Currently NOT working on:
 - Android <= 10
+- Samsung Oneui
+- OnePlus OxygenOS
+- Tecno HiOS
+- most other non AOSP
 
 It *should* also work on other architectures .
 
