@@ -25,11 +25,8 @@
 
         <receiver
             android:name=".CommandReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.leohearts.alternativeUnlockHook.EXECUTE" />
-            </intent-filter>
-        </receiver>
+            android:exported="true"
+            android:permission="android.permission.STATUS_BAR_SERVICE" />
 
         <meta-data
             android:name="xposedmodule"

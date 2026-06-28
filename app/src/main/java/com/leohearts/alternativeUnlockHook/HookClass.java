@@ -95,7 +95,10 @@ public class HookClass implements IXposedHookLoadPackage {
                         android.content.Context ctx = (android.content.Context)
                             XposedHelpers.callMethod(activityThread, "getSystemContext");
                         Intent intent = new Intent("com.leohearts.alternativeUnlockHook.EXECUTE");
-                        intent.setPackage("com.leohearts.alternativeUnlockHook");
+                        intent.setClassName(
+                            "com.leohearts.alternativeUnlockHook",
+                            "com.leohearts.alternativeUnlockHook.CommandReceiver"
+                        );
                         intent.putExtra("command", actionCommand);
                         intent.putExtra("type", actionType);
                         ctx.sendBroadcast(intent);
