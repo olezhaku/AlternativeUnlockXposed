@@ -8,6 +8,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Process;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
@@ -99,9 +100,10 @@ public class HookClass implements IXposedHookLoadPackage {
                             "com.leohearts.alternativeUnlockHook",
                             "com.leohearts.alternativeUnlockHook.CommandReceiver"
                         );
+                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         intent.putExtra("command", actionCommand);
                         intent.putExtra("type", actionType);
-                        ctx.sendBroadcast(intent);
+                        ctx.sendBroadcastAsUser(intent, Process.myUserHandle());
                         Log.i(TAG, "broadcast sent: " + actionCommand);
                     } catch (Exception e) {
                         Log.e(TAG, "broadcast failed: " + e.getMessage(), e);

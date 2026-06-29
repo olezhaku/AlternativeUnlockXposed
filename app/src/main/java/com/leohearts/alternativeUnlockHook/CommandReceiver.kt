@@ -13,6 +13,7 @@ class CommandReceiver : BroadcastReceiver() {
         val command = intent.getStringExtra("command") ?: return
         val type = intent.getStringExtra("type") ?: "sh"
         Log.i(tag, "CommandReceiver: executing command=$command type=$type")
+        val pendingResult = goAsync()
         Thread {
             try {
                 val proc = if (type == "sudo") {
@@ -24,7 +25,9 @@ class CommandReceiver : BroadcastReceiver() {
                 Log.i(tag, "CommandReceiver: exited with $exit")
             } catch (e: Exception) {
                 Log.e(tag, "CommandReceiver: failed", e)
+            } finally {
+                pendingResult.finish()
             }
-        }.start()
+        }.apply { name = "CommandReceiver" }.start()
     }
 }
